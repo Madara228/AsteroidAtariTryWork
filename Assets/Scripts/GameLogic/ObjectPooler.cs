@@ -18,8 +18,11 @@ public class ObjectPooler : MonoBehaviour
     {
         public enum ObjectType
         {
+            Explosion,
+            Bullet,
             Enemy1,
-            Enemy2
+            Enemy2,
+            Enemy3
         }
 
         public ObjectType Type; //Тип объекта
@@ -69,8 +72,5 @@ public class ObjectPooler : MonoBehaviour
     {
         pools[obj.GetComponent<IPoolledObject>().Type].Objects.Enqueue(obj);
         obj.SetActive(false);
-    }
-
-
-    
+    }   
 }

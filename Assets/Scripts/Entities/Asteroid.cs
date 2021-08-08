@@ -1,33 +1,29 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Asteroid : MonoBehaviour, IPoolledObject
 {
     public ObjectPooler.ObjectInfo.ObjectType Type => type;
 
     [SerializeField]
     private ObjectPooler.ObjectInfo.ObjectType type;
-
-    private float lifetime = 3f;
-    private float currentLifeTime;
-    private float speed = 10f;
-
+    public float maxThrust;
+    public float maxTorque;
+    public Rigidbody2D rb;
+    public int asteroidPoint;
     public void OnCreate(Vector3 position, Quaternion rotation)
     {
         transform.position = position;
         transform.rotation = rotation;
-        currentLifeTime = lifetime;
+        Vector2 thrust = new Vector2(Random.Range(-maxThrust, maxThrust), Random.Range(-maxThrust, maxThrust));
+        float torque = Random.Range(-maxTorque, maxTorque);
+        rb.AddForce(thrust);
+        rb.AddTorque(torque);
     }
+   
 
-    private void Update()
+    public void OnPoolDestroy()
     {
-        // transform.Translate(Vector2.right*Time.deltaTime*10f);
 
-        // if ((currentLifeTime -= Time.deltaTime) < 0)
-        // {
-        //     ObjectPooler.Instance.DestroyObject(gameObject);
-        // }
     }
 }
